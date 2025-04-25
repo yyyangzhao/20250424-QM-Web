@@ -42,6 +42,33 @@
   <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
+  <style>
+    table {
+      width: 100%;
+      max-width: 800px;
+      margin: 20px auto;
+      border-collapse: collapse;
+      font-size: 14px;
+      font-family: Arial, sans-serif;
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+    caption {
+      caption-side: bottom;
+      padding: 10px;
+      font-style: italic;
+    }
+    .table-container {
+      text-align: center;
+    }
+  </style>
 </head>
 
 <body>
@@ -211,7 +238,10 @@
               We first collect input-output examples from legacy programs and constrained test generation. These examples are used to construct a Binary Speculative Diagram (BSD), iteratively expanded via Boolean Distance to achieve high accuracy. The resulting large-scale Boolean function is converted to a Verilog module, yielding the Enlightenment-1 RISC-V CPU design.
             </p>
           </div>
-          <img src="./static/images/ijcai-fig 1.png">
+          <figure>
+            <img src="./static/images/ijcai-fig 1.png">
+            <figcaption>Figure 1: <strong>Comparison of CPU design flow.</strong> (a) The conventional design flow is an iterative process with huge manual efforts in programming, debugging, and verification of the circuit logic. (b) The proposed automated design flow, which learns the circuit logic only from input-output (IO) examples of test cases with the proposed BSD expansion, is a fully-automatic and iterative process that eliminates manual efforts on programming, debugging, and verification of the circuit logic.</figcaption>
+          </figure>
         </div>
       </div>
       <!--/ Overview. -->
@@ -245,16 +275,16 @@
               Although we demonstrate the capability of our approach with the RISC-V32IA instruction set, it can generate the circuit logic of other CPUs with different instruction sets as long as we can obtain the IO examples.
           </p>
             <figure>
-              <img src="./static/images/AAAI_fig7.png" alt="Enlightenment-1 Chip" style="width: 50%;">
-              <figcaption>The (a) layout, (b) manufactured chip, and (c) printed circuit board of Enlightenment-1.</figcaption>
+              <img src="./static/images/AAAI_fig7.png" style="width: 50%;">
+              <figcaption>Figure 2: The (a) layout, (b) manufactured chip, and (c) printed circuit board of Enlightenment-1.</figcaption>
             </figure>
             <p>
               We successfully run the Linux (kernel 5.15) operating system and SPEC CINT2000 on Enlightenment-1 to validate the functionality (see image (a) below). We also use the widely-used Dhrystone to evaluate the performance. The image (b) below compares the performance of Enlightenment-1 against different generations of commercial CPUs, e.g., Intel 80386 (1980s), Intel 80486SX (1990s), and Intel Pentium III (2000s). On the evaluated program, it performs comparably to Intel 80486SX, designed in mid-1991. Though Enlightenment-1 performs worse than modern processors such as Intel Core i7 3930K, it is the world’s first automatically designed CPU, and its performance could be significantly improved with augmented algorithms, which is left as our future work.
             </p>
             <figure>
-              <img src="./static/images/ijcai-fig 6.png" alt="Enlightenment-1 Chip">
+              <img src="./static/images/ijcai-fig 6.png">
               <figcaption>
-                <b>Functional validation and performance comparison.</b> 
+                Figure 3: <b>Functional validation and performance comparison.</b> 
                 (a) The outputs of booting up the Linux operating system. 
                 (b) The performance of Enlightenment-1 is compared against commercial CPUs on the Dhrystone benchmark, and Enlightenment-1 performs comparably to the human-designed Intel 80486SX CPU.
               </figcaption>
@@ -265,12 +295,77 @@
           </p>
             <h3 class="title is-4">Comparison with State-of-the-art</h3>
             <p>
-              [TODO]
+              Automated circuit design is an extremely challenging task, and thus there are only several recent studies on using machine learning methods to generate small-scale circuits, including LLMs, NNs, Reinforcement Learning (RL), Decision Trees (DTs) and Ensemble Learning (EL) methods. 
+            </p>
+            <p>
+              <b>Experiment on small-scale circuit designs.</b><br>
+              As listed in Table 1, circuits automatically designed by our approach are more than 1700× larger than existing work, because they cannot yet handle the accuracy challenge of large-scale circuits such as CPUs. Besides, these designs are only verified on a limited number of test cases, and cannot guarantee the strict design accuracy for taped-out industrial CPUs.
+              In comparison, the proposed method can functionally design all the benchmark circuits solved by the state-of-the-art methods in the ICCAD contest and Opencores accurately.
+              The experiment benchmarks in these tasks are components of a large-scale processor, such as the logic/arithmetic unit or controllers in the processor, or over-simplified CPUs that cannot even run modern essential programs, such as the Linux operating system or other modern file systems.
+            </p>
+            <div class="table-container">
+              <table>
+                <caption>Table 1: Comparison with automated circuit design tasks.</caption>
+                <thead>
+                  <tr>
+                    <th>Target Circuit</th>
+                    <th>Gate No.</th>
+                    <th>Methods</th>
+                    <th>Tape-out Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Adder</td>
+                    <td>118</td>
+                    <td>RL</td>
+                    <td>NA</td>
+                  </tr>
+                  <tr>
+                    <td>Circuit Modules</td>
+                    <td>186</td>
+                    <td>DT</td>
+                    <td>NA</td>
+                  </tr>
+                  <tr>
+                    <td>Circuit Modules</td>
+                    <td>~2500</td>
+                    <td>EL</td>
+                    <td>NA</td>
+                  </tr>
+                  <tr>
+                    <td>8-bit CPU</td>
+                    <td>999</td>
+                    <td>LLM</td>
+                    <td>2023-05</td>
+                  </tr>
+                  <tr>
+                    <td>Enlightenment-1</td>
+                    <td>4,272,680</td>
+                    <td>BSD</td>
+                    <td>2021-12</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              <b>Experiment on the large-scale CPU design.</b><br>
+              We apply state-of-the-art algorithms in the proposed CPU design flow to design the circuit logic, replacing the proposed BSD expansion method. However, all these methods fail due to the strict accuracy constraint.
+              With only IOs as prompt without any structural description from the human designer, the LLM-based methods can only read 1 pair of IO examples with 2000 tokens, and it is impossible to design.
+              The RL-based method does not have a proper initialization without a formal expression and fails to design due to the sparse rewards in the vast design space.
+              All the DT-based methods fail to design, because without the merging possibility in the data structure, for such large-scale circuit design, it fails because of state explosion.
+              NN methods can fit the IOs, but even the training errors are not close to 10<sup>-13</sup>, and drop more in the quantization to produce the circuit logic.
             </p>
             <h3 class="title is-4">Discovering the von Neumann Architecture</h3>
             <p>
-              [TODO]
+              By detailing the generated circuit logic of Enlightenment-1, we demonstrate that our approach discovers human knowledge of von Neumann architecture only from the IO examples. Concretely, the generated CPU design in terms of BSD has the key component of the von Neumann architecture, which mainly consists of the control unit generated first in the BSD for global control, and the arithmetic unit (see Figure 4). The control unit generates the controlling signals for the entire CPU, and the arithmetic unit accomplishes arithmetic operations (e.g., ADD and SUB) and logic operations (e.g., AND and OR). Moreover, we observe that both the control unit and arithmetic unit can be recursively decomposed into smaller functional modules such as the instruction decoder, ALU, and LSU (load/store unit) by expanding more BSD layers.
             </p>
+            <figure>
+              <img src="./static/images/ijcai-fig 7.png">
+              <figcaption>
+                Figure 4: <b>Discovering von Neumann architecture from scratch.</b> The generated BSD mainly consists of the control unit and arithmetic unit, which can be further decomposed into sub-modules in the BSD, e.g., the control unit contains the privilege controller and instruction decoder, and the arithmetic unit contains ALU and LSU.
+              </figcaption>
+            </figure>
           </div>
         </div>
       </div>
@@ -280,9 +375,27 @@
         <div class="column">
           <div class="content">
             <h2 class="title is-3">An Illustrate Example</h2>
-            <p>
-              [TODO]
-            </p>
+            <div>
+              <p>
+                Here we use an 8-bit adder, <code>c[8:0] = a[7:0] + b[7:0]</code>, as an illustrative example to detail the process of the BSD expansion. 
+                The initialized BSD consists of only 9 root nodes, representing the output bits <code>c[8:0]</code>. Figure 5(a) illustrates one single iteration of the BSD expansion.
+              </p>
+              <p>
+                First, the highest bit <code>c[8]</code> is chosen for expansion, and by calculating the Boolean Distance, <code>c[7]</code> is selected to cluster with <code>c[8]</code>, as many child nodes of these nodes can be reused. If <code>c[7]</code> and <code>c[8]</code> are designed individually, the total BSD nodes would be <code>C<sub>Ω</sub>(c<sub>8</sub>) + C<sub>Ω</sub>(c<sub>7</sub>) = 43 + 23 = 66</code>. However, when clustered, the total BSD nodes are <code>C<sub>Ω</sub>(c<sub>8</sub>, c<sub>7</sub>) = 46</code>. The Boolean Distance, <code>Dist = C<sub>Ω</sub>(c<sub>8</sub>) + C<sub>Ω</sub>(c<sub>7</sub>) - C<sub>Ω</sub>(c<sub>8</sub>, c<sub>7</sub>) = 20 > 0</code>, indicates that 20 BSD nodes can be reused, making it efficient to cluster these nodes together.
+              </p>
+              <p>
+                Next, within the cluster of <code>c[8]</code> and <code>c[7]</code>, the variable that increases accuracy the most is expanded first. Based on the IO examples, the most significant bits <code>a[7]</code> and <code>b[7]</code> are expanded first. During this expansion, merging possibilities are identified using the Monte Carlo method according to Theorem 1. Specifically, <code>c[8] | (a[7]=0, b[7]=0) = 0</code>, meaning when <code>a[7]=0</code> and <code>b[7]=0</code>, <code>c[8]=0</code>, so this node is constant 0 and its expansion ends. Similarly, <code>c[8] | (a[7]=1, b[7]=1) = 1</code>, so this node is constant 1 and its expansion ends. Using the Monte Carlo method, it is found that <code>c[8] | (a[7]=0, b[7]=1) = c[8] | (a[7]=1, b[7]=0) = c[7] | (a[7]=0, b[7]=1) = c[7] | (a[7]=1, b[7]=0)</code>, allowing these four sub-functions to be merged into one speculated node. Likewise, <code>c[7] | (a[7]=0, b[7]=0) = c[7] | (a[7]=1, b[7]=1)</code>, so these two nodes are also merged. Thus, after the 2-variable expansion, only 2 speculated nodes remain. In contrast, if these nodes were not clustered and expanded separately, there would be 4 speculated nodes remaining, and 20 additional nodes after full expansion, demonstrating that node clustering efficiently reduces BSD nodes.
+              </p>
+              <p>
+                After the iteration expanding two variables, the circuit logic is updated with the BSD and checked for verification. The iteration continues until verification is passed. In this case, the current BSD fails verification because the speculated nodes are not yet constant 0 or 1. Therefore, another BSD node is chosen to start a new iteration. Finally, when the designed BSD passes verification, the BSD is output in Verilog, completing the automated circuit logic design from our method.
+              </p>
+            </div>
+            <figure>
+              <img src="./static/images/2024ijcai_fig4.png">
+              <figcaption>
+                Figure 5: <b>An 8-bit full adder example of BSD expansion.</b> An iteration in the BSD expansion.
+              </figcaption>
+            </figure>
           </div>
         </div>
       </div>
