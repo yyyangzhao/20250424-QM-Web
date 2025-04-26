@@ -244,7 +244,8 @@
           <h2 class="title is-3">Overview</h2>
           <div class="content">
             <p>
-              We first collect input-output examples from legacy programs and constrained test generation. These examples are used to construct a Binary Speculative Diagram (BSD), iteratively expanded via Boolean Distance to achieve high accuracy. The resulting large-scale Boolean function is converted to a Verilog module, yielding the Enlightenment-1 RISC-V CPU design.
+              The conventional design flow is an iterative process that requires significant manual efforts in programming, debugging, and verification of the circuit logic. By contrast, we propose an automated CPU design flow which learns the circuit logic solely from input-output (IO) examples of test cases, utilizing our proposed BSD expansion method. When the generated circuit logic fails to pass specific tests, more IO examples will be automatically sampled from the test cases to update the generated circuit logic. This is a fully automatic and iterative process where the generated circuit logic is verified and debugged till it successfully passes a sufficient number of tests.
+              <!-- We first collect input-output examples from legacy programs and constrained test generation. These examples are used to construct a Binary Speculative Diagram (BSD), iteratively expanded via Boolean Distance to achieve high accuracy. The resulting large-scale Boolean function is converted to a Verilog module, yielding the Enlightenment-1 RISC-V CPU design. -->
             </p>
           </div>
           <figure>
@@ -271,9 +272,10 @@
       </div> -->
 
       <div class="columns is-centered">
+      <!-- <div class="columns is-centered has-text-centered"> -->
         <div class="column">
           <div class="content">
-            <h2 class="title is-3">Evaluation</h2>
+            <h2 class="title is-3" style="text-align: center;">Enlightenment-1: The World's First Automatically Generated CPU </h2>
             <p>
               We use the proposed approach to automatically generate a 32-bit RISC-V CPU, Enlightenment-1, within 5 hours, and demonstrate that the approach can discover human knowledge of von Neumann architecture. 
             </p>
@@ -281,14 +283,15 @@
             <p>
               We use the proposed approach to generate the CPU design from a relatively small set of IO examples. Concretely, the CPU has 1789 input bits and 1826 output bits, and thus the total number of IO examples is 1826 × 2<sup>1798</sup>, while only less than 2<sup>40</sup> IO examples are randomly sampled for training. 
               The training process takes less than 5 hours to achieve an accuracy of >99.99999999999% for validation tests. The generated CPU design then undergoes the physical design process with scripts at 65nm technology to generate the layout for fabrication. The layout of the entire chip with major components marked, the manufactured chip with a frequency of 300 MHz, and the printed circuit board containing the chip are illustrated below.
-              Although we demonstrate the capability of our approach with the RISC-V32IA instruction set, it can generate the circuit logic of other CPUs with different instruction sets as long as we can obtain the IO examples.
+              <!-- Although we demonstrate the capability of our approach with the RISC-V32IA instruction set, it can generate the circuit logic of other CPUs with different instruction sets as long as we can obtain the IO examples. -->
           </p>
             <figure>
               <img src="./static/images/AAAI_fig7.png" style="width: 50%;">
               <figcaption>Figure 2: The (a) layout, (b) manufactured chip, and (c) printed circuit board of Enlightenment-1.</figcaption>
             </figure>
+            <h3 class="title is-4">Perform Comparably to Intel 80486SX CPU</h3>
             <p>
-              We successfully run the Linux (kernel 5.15) operating system and SPEC CINT2000 on Enlightenment-1 to validate the functionality (see image (a) below). We also use the widely-used Dhrystone to evaluate the performance. The image (b) below compares the performance of Enlightenment-1 against different generations of commercial CPUs, e.g., Intel 80386 (1980s), Intel 80486SX (1990s), and Intel Pentium III (2000s). On the evaluated program, it performs comparably to Intel 80486SX, designed in mid-1991. Though Enlightenment-1 performs worse than modern processors such as Intel Core i7 3930K, it is the world’s first automatically designed CPU, and its performance could be significantly improved with augmented algorithms, which is left as our future work.
+              We successfully run the Linux (kernel 5.15) operating system and SPEC CINT2000 on Enlightenment-1 to validate the functionality (see Figure 3 (a) below). We also use the widely-used Dhrystone to evaluate the performance. The Figure 3 (b) below compares the performance of Enlightenment-1 against different generations of commercial CPUs, e.g., Intel 80386 (1980s), Intel 80486SX (1990s), and Intel Pentium III (2000s). On the evaluated program, it performs comparably to Intel 80486SX, designed in mid-1991. Though Enlightenment-1 performs worse than modern processors such as Intel Core i7 3930K, it is the world’s first automatically designed CPU, and its performance could be significantly improved with augmented algorithms, which is left as our future work.
             </p>
             <figure>
               <img src="./static/images/ijcai-fig 6.png">
@@ -298,11 +301,11 @@
                 (b) The performance of Enlightenment-1 is compared against commercial CPUs on the Dhrystone benchmark, and Enlightenment-1 performs comparably to the human-designed Intel 80486SX CPU.
               </figcaption>
             </figure>
-            <p>
+            <!-- <p>
               <strong>Reduction of Development Costs.</strong><br>
               To demonstrate that the proposed method reforms the CPU design flow, we further compare the development costs of Enlightenment-1 and human-designed CPU (i.e., CPU-Man), where the internal registers of CPU-Man exhibit exactly the same behavior as Enlightenment-1 based on the same instruction set specification. The CPU-Man takes approximately ~ 5000 man-hours to complete the entire design, while Enlightenment-1 only takes less than 5 hours to obtain the design by training from the IO examples. The reduction of development costs is further validated by the design and verification costs of an Intel 486-compatible CPU, K486, which takes more than 190 days (i.e., 4560 hours) merely for the verification process. The reason is that manual efforts in programming, debugging, and verification of circuit logic in the conventional CPU design flow are completely eliminated.
-          </p>
-            <h3 class="title is-4">Comparison with State-of-the-art</h3>
+          </p> -->
+            <!-- <h3 class="title is-4">Comparison with State-of-the-art</h3>
             <p>
               Automated circuit design is an extremely challenging task, and thus there are only several recent studies on using machine learning methods to generate small-scale circuits, including LLMs, NNs, Reinforcement Learning (RL), Decision Trees (DTs) and Ensemble Learning (EL) methods. 
             </p>
@@ -356,7 +359,7 @@
                   </tr>
                 </tbody>
               </table>
-            </div>
+            </div> -->
             <p>
               <b>Experiment on the large-scale CPU design.</b><br>
               We apply state-of-the-art algorithms in the proposed CPU design flow to design the circuit logic, replacing the proposed BSD expansion method. However, all these methods fail due to the strict accuracy constraint.
@@ -380,7 +383,7 @@
       </div>
       
 
-      <div class="columns is-centered">
+      <!-- <div class="columns is-centered">
         <div class="column">
           <div class="content">
             <h2 class="title is-3">An Illustrate Example</h2>
@@ -407,7 +410,7 @@
             </figure>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
 
   
