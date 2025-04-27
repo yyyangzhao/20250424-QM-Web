@@ -368,7 +368,7 @@
               All the DT-based methods fail to design, because without the merging possibility in the data structure, for such large-scale circuit design, it fails because of state explosion.
               NN methods can fit the IOs, but even the training errors are not close to 10<sup>-13</sup>, and drop more in the quantization to produce the circuit logic.
             </p>
-            <h3 class="title is-4">Discovering the von Neumann Architecture</h3>
+            <h3 class="title is-4">Discover the von Neumann Architecture</h3>
             <p>
               By detailing the generated circuit logic of Enlightenment-1, we demonstrate that our approach discovers human knowledge of von Neumann architecture only from the IO examples. Concretely, the generated CPU design in terms of BSD has the key component of the von Neumann architecture, which mainly consists of the control unit generated first in the BSD for global control, and the arithmetic unit (see Figure 4). The control unit generates the controlling signals for the entire CPU, and the arithmetic unit accomplishes arithmetic operations (e.g., ADD and SUB) and logic operations (e.g., AND and OR). Moreover, we observe that both the control unit and arithmetic unit can be recursively decomposed into smaller functional modules such as the instruction decoder, ALU, and LSU (load/store unit) by expanding more BSD layers.
             </p>
