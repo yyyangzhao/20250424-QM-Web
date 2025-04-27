@@ -244,10 +244,6 @@
 
           <div class="content">
             <h2 class="title is-3" style="text-align: center;">Overview</h2>
-            <figure>
-              <img src="./static/images/ijcai-fig 1.png" style="width: 70%;">
-              <figcaption>Figure 1: <strong>Comparison of CPU design flow.</strong> (a) The conventional design flow is an iterative process with huge manual efforts in programming, debugging, and verification of the circuit logic. (b) The proposed automated design flow, which learns the circuit logic only from input-output (IO) examples of test cases with the proposed BSD expansion, is a fully-automatic and iterative process that eliminates manual efforts on programming, debugging, and verification of the circuit logic.</figcaption>
-            </figure>
             <p>
               Designing a central processing unit (CPU) requires intensive manual work by talented experts to implement the circuit logic from design specifications, involving an iterative process that demands significant effort in programming, debugging, and verification (shown in Figure 1 (a)). Although considerable progress has been made in electronic design automation (EDA) to relieve human efforts, all existing tools require hand-crafted formal program codes (e.g., Verilog, Chisel, or C) as the input.
             </p>  
@@ -264,12 +260,16 @@
               The conventional design flow is an iterative process that requires significant manual efforts in programming, debugging, and verification of the circuit logic. By contrast, we propose an automated CPU design flow which learns the circuit logic solely from input-output (IO) examples of test cases, utilizing our proposed BSD expansion method. When the generated circuit logic fails to pass specific tests, more IO examples will be automatically sampled from the test cases to update the generated circuit logic. This is a fully automatic and iterative process where the generated circuit logic is verified and debugged till it successfully passes a sufficient number of tests. -->
               <!-- We first collect input-output examples from legacy programs and constrained test generation. These examples are used to construct a Binary Speculative Diagram (BSD), iteratively expanded via Boolean Distance to achieve high accuracy. The resulting large-scale Boolean function is converted to a Verilog module, yielding the Enlightenment-1 RISC-V CPU design. -->
             <!-- </p> -->
-          <figure>
-            <img src="./static/images/table0.png" style="width: 70%;">
-            <figcaption>
-              Table 1: Comparison with automated circuit design tasks.
-            </figcaption>
-          </figure>
+            <figure>
+              <img src="./static/images/ijcai-fig 1.png" style="width: 70%;">
+              <figcaption>Figure 1: <strong>Comparison of CPU design flow.</strong> (a) The conventional design flow is an iterative process with huge manual efforts in programming, debugging, and verification of the circuit logic. (b) The proposed automated design flow, which learns the circuit logic only from input-output (IO) examples of test cases with the proposed BSD expansion, is a fully-automatic and iterative process that eliminates manual efforts on programming, debugging, and verification of the circuit logic.</figcaption>
+            </figure>
+            <figure>
+              <img src="./static/images/table0.png" style="width: 70%;">
+              <figcaption>
+                Table 1: Comparison with automated circuit design tasks.
+              </figcaption>
+            </figure>
           </div>
         </div>
       </div>
