@@ -128,7 +128,7 @@
                 <a>Tianshi Chen</a><sup>3</sup>,
               </span>
               <span class="author-block">
-                <a>Yunji Chen</a><sup>1,2</sup>,
+                <a>Yunji Chen</a><sup>1,2</sup>
               </span>
             </div>
 
@@ -239,10 +239,15 @@
       </div> -->
       <!--/ Abstract. -->
       <!-- Overview. -->
-      <div class="columns is-centered has-text-centered">
+      <div class="columns is-centered">
         <div class="column">
-          <h2 class="title is-3">Overview</h2>
+
           <div class="content">
+            <h2 class="title is-3" style="text-align: center;">Overview</h2>
+            <figure>
+              <img src="./static/images/ijcai-fig 1.png" style="width: 70%;">
+              <figcaption>Figure 1: <strong>Comparison of CPU design flow.</strong> (a) The conventional design flow is an iterative process with huge manual efforts in programming, debugging, and verification of the circuit logic. (b) The proposed automated design flow, which learns the circuit logic only from input-output (IO) examples of test cases with the proposed BSD expansion, is a fully-automatic and iterative process that eliminates manual efforts on programming, debugging, and verification of the circuit logic.</figcaption>
+            </figure>
             <p>
               Designing a central processing unit (CPU) requires intensive manual work by talented experts to implement the circuit logic from design specifications, involving an iterative process that demands significant effort in programming, debugging, and verification (shown in Figure 1 (a)). Although considerable progress has been made in electronic design automation (EDA) to relieve human efforts, all existing tools require hand-crafted formal program codes (e.g., Verilog, Chisel, or C) as the input.
             </p>  
@@ -259,17 +264,13 @@
               The conventional design flow is an iterative process that requires significant manual efforts in programming, debugging, and verification of the circuit logic. By contrast, we propose an automated CPU design flow which learns the circuit logic solely from input-output (IO) examples of test cases, utilizing our proposed BSD expansion method. When the generated circuit logic fails to pass specific tests, more IO examples will be automatically sampled from the test cases to update the generated circuit logic. This is a fully automatic and iterative process where the generated circuit logic is verified and debugged till it successfully passes a sufficient number of tests. -->
               <!-- We first collect input-output examples from legacy programs and constrained test generation. These examples are used to construct a Binary Speculative Diagram (BSD), iteratively expanded via Boolean Distance to achieve high accuracy. The resulting large-scale Boolean function is converted to a Verilog module, yielding the Enlightenment-1 RISC-V CPU design. -->
             <!-- </p> -->
-          </div>
           <figure>
             <img src="./static/images/table0.png" style="width: 70%;">
             <figcaption>
               Table 1: Comparison with automated circuit design tasks.
             </figcaption>
           </figure>
-          <figure>
-            <img src="./static/images/ijcai-fig 1.png">
-            <figcaption>Figure 1: <strong>Comparison of CPU design flow.</strong> (a) The conventional design flow is an iterative process with huge manual efforts in programming, debugging, and verification of the circuit logic. (b) The proposed automated design flow, which learns the circuit logic only from input-output (IO) examples of test cases with the proposed BSD expansion, is a fully-automatic and iterative process that eliminates manual efforts on programming, debugging, and verification of the circuit logic.</figcaption>
-          </figure>
+          </div>
         </div>
       </div>
       <!--/ Overview. -->
@@ -319,7 +320,7 @@
               We successfully run the Linux (kernel 5.15) operating system and SPEC CINT2000 on Enlightenment-1 to validate the functionality (see Figure 3 (a) below). We also use the widely-used Dhrystone to evaluate the performance. The Figure 3 (b) below compares the performance of Enlightenment-1 against different generations of commercial CPUs, e.g., Intel 80386 (1980s), Intel 80486SX (1990s), and Intel Pentium III (2000s). On the evaluated program, it performs comparably to Intel 80486SX, designed in mid-1991. Though Enlightenment-1 performs worse than modern processors such as Intel Core i7 3930K, it is the world’s first automatically designed CPU, and its performance could be significantly improved with augmented algorithms, which is left as our future work.
             </p>
             <figure>
-              <img src="./static/images/ijcai-fig 6.png">
+              <img src="./static/images/ijcai-fig 6.png" style="width: 70%;">
               <figcaption>
                 Figure 3: <b>Functional validation and performance comparison.</b> 
                 (a) The outputs of booting up the Linux operating system. 
@@ -398,7 +399,7 @@
               By detailing the generated circuit logic of Enlightenment-1, we demonstrate that our approach discovers human knowledge of von Neumann architecture only from the IO examples. Concretely, the generated CPU design in terms of BSD has the key component of the von Neumann architecture, which mainly consists of the control unit generated first in the BSD for global control, and the arithmetic unit (see Figure 4). The control unit generates the controlling signals for the entire CPU, and the arithmetic unit accomplishes arithmetic operations (e.g., ADD and SUB) and logic operations (e.g., AND and OR). Moreover, we observe that both the control unit and arithmetic unit can be recursively decomposed into smaller functional modules such as the instruction decoder, ALU, and LSU (load/store unit) by expanding more BSD layers.
             </p>
             <figure>
-              <img src="./static/images/ijcai-fig 7.png">
+              <img src="./static/images/ijcai-fig 7.png" style="width: 70%;">
               <figcaption>
                 Figure 4: <b>Discovering von Neumann architecture from scratch.</b> The generated BSD mainly consists of the control unit and arithmetic unit, which can be further decomposed into sub-modules in the BSD, e.g., the control unit contains the privilege controller and instruction decoder, and the arithmetic unit contains ALU and LSU.
               </figcaption>
