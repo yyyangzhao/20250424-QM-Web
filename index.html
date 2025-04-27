@@ -122,13 +122,13 @@
                 <a>Yuejie Chu</a><sup>1</sup>,
               </span>
               <span class="author-block">
-                <a>Weilong Mao</a><sup>1</sup>
+                <a>Weilong Mao</a><sup>1</sup>,
               </span>
               <span class="author-block">
-                <a>Tianshi Chen</a><sup>3</sup>
+                <a>Tianshi Chen</a><sup>3</sup>,
               </span>
               <span class="author-block">
-                <a>Yunji Chen</a><sup>1,2</sup>
+                <a>Yunji Chen</a><sup>1,2</sup>,
               </span>
             </div>
 
@@ -171,11 +171,11 @@
                 </span> -->
                 <!-- Code Link. -->
                 <span class="link-block">
-                  <a href="https://zenodo.org/records/7623972" class="external-link button is-normal is-rounded is-dark">
+                  <a href="https://github.com/Qimeng-ICT/Qimeng-1" class="external-link button is-normal is-rounded is-dark">
                     <span class="icon">
                       <i class="fas fa-code"></i>
                     </span>
-                    <span>Code</span>
+                    <span>Code and Designs</span>
                   </a>
                 </span>
                 <!-- Web Link.
@@ -218,7 +218,7 @@
   <section class="section">
     <div class="container is-max-desktop">
       <!-- Abstract. -->
-      <div class="columns is-centered has-text-centered">
+      <!-- <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
           <h2 class="title is-3">Abstract</h2>
           <div class="content has-text-justified">
@@ -236,7 +236,7 @@
             </p>
           </div>
         </div>
-      </div>
+      </div> -->
       <!--/ Abstract. -->
       <!-- Overview. -->
       <div class="columns is-centered has-text-centered">
@@ -244,10 +244,28 @@
           <h2 class="title is-3">Overview</h2>
           <div class="content">
             <p>
-              The conventional design flow is an iterative process that requires significant manual efforts in programming, debugging, and verification of the circuit logic. By contrast, we propose an automated CPU design flow which learns the circuit logic solely from input-output (IO) examples of test cases, utilizing our proposed BSD expansion method. When the generated circuit logic fails to pass specific tests, more IO examples will be automatically sampled from the test cases to update the generated circuit logic. This is a fully automatic and iterative process where the generated circuit logic is verified and debugged till it successfully passes a sufficient number of tests.
-              <!-- We first collect input-output examples from legacy programs and constrained test generation. These examples are used to construct a Binary Speculative Diagram (BSD), iteratively expanded via Boolean Distance to achieve high accuracy. The resulting large-scale Boolean function is converted to a Verilog module, yielding the Enlightenment-1 RISC-V CPU design. -->
+              Designing a central processing unit (CPU) requires intensive manual work by talented experts to implement the circuit logic from design specifications, involving an iterative process that demands significant effort in programming, debugging, and verification (shown in Figure 1 (a)). Although considerable progress has been made in electronic design automation (EDA) to relieve human efforts, all existing tools require hand-crafted formal program codes (e.g., Verilog, Chisel, or C) as the input.
+            </p>  
+            <p> 
+              To automate CPU design without human programming, we are motivated to learn the CPU design from only input-output (IO) examples, which are generated from test cases of design specification (shown in Figure 1 (b)). The key challenge is that the learned CPU design must have near-zero tolerance for inaccuracy, rendering well-known approximate algorithms, such as neural networks, ineffective.
             </p>
+            <p>
+              We propose a novel AI approach to generate the CPU design as a large-scale Boolean function, using only external IO examples instead of formal program code. This approach employs a new graph structure called the Binary Speculative Diagram (BSD) to accurately approximate the CPU-scale Boolean function. We introduce an efficient BSD expansion method based on Boolean Distance, a new metric to quantitatively measure the structural similarity between Boolean functions, gradually achieving 100% design accuracy.
+            </p>
+            <p>
+              Our approach generates an industrial-scale RISC-V CPU design in just 5 hours which is over 1700× larger than existing work (shown in Table 1), reducing the design cycle by approximately 1000× without human involvement. The taped-out chip, Enlightenment-1, the world's first CPU designed by AI, successfully runs the Linux operating system and performs comparably to the human-designed Intel 80486SX CPU. Remarkably, our approach autonomously rediscovers human knowledge of the von Neumann architecture.
+            </p>
+            <!-- <p>
+              The conventional design flow is an iterative process that requires significant manual efforts in programming, debugging, and verification of the circuit logic. By contrast, we propose an automated CPU design flow which learns the circuit logic solely from input-output (IO) examples of test cases, utilizing our proposed BSD expansion method. When the generated circuit logic fails to pass specific tests, more IO examples will be automatically sampled from the test cases to update the generated circuit logic. This is a fully automatic and iterative process where the generated circuit logic is verified and debugged till it successfully passes a sufficient number of tests. -->
+              <!-- We first collect input-output examples from legacy programs and constrained test generation. These examples are used to construct a Binary Speculative Diagram (BSD), iteratively expanded via Boolean Distance to achieve high accuracy. The resulting large-scale Boolean function is converted to a Verilog module, yielding the Enlightenment-1 RISC-V CPU design. -->
+            <!-- </p> -->
           </div>
+          <figure>
+            <img src="./static/images/table0.png" style="width: 70%;">
+            <figcaption>
+              Table 1: Comparison with automated circuit design tasks.
+            </figcaption>
+          </figure>
           <figure>
             <img src="./static/images/ijcai-fig 1.png">
             <figcaption>Figure 1: <strong>Comparison of CPU design flow.</strong> (a) The conventional design flow is an iterative process with huge manual efforts in programming, debugging, and verification of the circuit logic. (b) The proposed automated design flow, which learns the circuit logic only from input-output (IO) examples of test cases with the proposed BSD expansion, is a fully-automatic and iterative process that eliminates manual efforts on programming, debugging, and verification of the circuit logic.</figcaption>
@@ -282,9 +300,16 @@
             <h3 class="title is-4">Automatically Design a RISC-V CPU</h3>
             <p>
               We use the proposed approach to generate the CPU design from a relatively small set of IO examples. Concretely, the CPU has 1789 input bits and 1826 output bits, and thus the total number of IO examples is 1826 × 2<sup>1798</sup>, while only less than 2<sup>40</sup> IO examples are randomly sampled for training. 
-              The training process takes less than 5 hours to achieve an accuracy of >99.99999999999% for validation tests. The generated CPU design then undergoes the physical design process with scripts at 65nm technology to generate the layout for fabrication. The layout of the entire chip with major components marked, the manufactured chip with a frequency of 300 MHz, and the printed circuit board containing the chip are illustrated below.
+              The training process takes less than 5 hours to achieve an accuracy of >99.99999999999% for validation tests. The generated CPU design then undergoes the physical design process with scripts at 65nm technology to generate the layout for fabrication，and the detailed hardware characteristics are listed in Table 2.
+              The layout of the entire chip with major components marked, the manufactured chip with a frequency of 300 MHz, and the printed circuit board containing the chip are illustrated below.
               <!-- Although we demonstrate the capability of our approach with the RISC-V32IA instruction set, it can generate the circuit logic of other CPUs with different instruction sets as long as we can obtain the IO examples. -->
           </p>
+            <figure>
+              <img src="./static/images/table1.png" style="width: 70%;">
+              <figcaption>
+                Table 2: Hardware characteristics of Enlightenment-1.
+              </figcaption>
+            </figure>
             <figure>
               <img src="./static/images/AAAI_fig7.png" style="width: 50%;">
               <figcaption>Figure 2: The (a) layout, (b) manufactured chip, and (c) printed circuit board of Enlightenment-1.</figcaption>
@@ -360,14 +385,14 @@
                 </tbody>
               </table>
             </div> -->
-            <p>
+            <!-- <p>
               <b>Experiment on the large-scale CPU design.</b><br>
               We apply state-of-the-art algorithms in the proposed CPU design flow to design the circuit logic, replacing the proposed BSD expansion method. However, all these methods fail due to the strict accuracy constraint.
               With only IOs as prompt without any structural description from the human designer, the LLM-based methods can only read 1 pair of IO examples with 2000 tokens, and it is impossible to design.
               The RL-based method does not have a proper initialization without a formal expression and fails to design due to the sparse rewards in the vast design space.
               All the DT-based methods fail to design, because without the merging possibility in the data structure, for such large-scale circuit design, it fails because of state explosion.
               NN methods can fit the IOs, but even the training errors are not close to 10<sup>-13</sup>, and drop more in the quantization to produce the circuit logic.
-            </p>
+            </p> -->
             <h3 class="title is-4">Discover the von Neumann Architecture</h3>
             <p>
               By detailing the generated circuit logic of Enlightenment-1, we demonstrate that our approach discovers human knowledge of von Neumann architecture only from the IO examples. Concretely, the generated CPU design in terms of BSD has the key component of the von Neumann architecture, which mainly consists of the control unit generated first in the BSD for global control, and the arithmetic unit (see Figure 4). The control unit generates the controlling signals for the entire CPU, and the arithmetic unit accomplishes arithmetic operations (e.g., ADD and SUB) and logic operations (e.g., AND and OR). Moreover, we observe that both the control unit and arithmetic unit can be recursively decomposed into smaller functional modules such as the instruction decoder, ALU, and LSU (load/store unit) by expanding more BSD layers.
